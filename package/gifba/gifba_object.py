@@ -327,7 +327,7 @@ class gifbaObject:
 
         # check if environment fluxes are under-saturated
         is_overconsumed = np.zeros_like(total_org_flux)
-        is_overconsumed[env_tmp != 0] = -total_org_flux[np.abs(env_tmp) >= 1e-6].astype(np.long) / env_tmp[np.abs(env_tmp) >= 1e-6].astype(np.long) # only check non-zero env fluxes
+        is_overconsumed[env_tmp != 0] = -total_org_flux[np.abs(env_tmp) >= 1e-6].astype(np.longlong) / env_tmp[np.abs(env_tmp) >= 1e-6].astype(np.longlong) # only check non-zero env fluxes
 
         # check if iteration uses more flux than available in environment
         if is_overconsumed.max().round(ROUND) > 1:
