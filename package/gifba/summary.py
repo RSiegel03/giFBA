@@ -21,7 +21,7 @@ class CommunitySummary:
         self.objective_total = None
         self.uptake = None
         self.secretion = None
-        self.element = None
+        self.element = element
         
         self._generate(community, iter_shown)
 
@@ -126,11 +126,12 @@ class CommunitySummary:
         output.append(f"{self.objective_total_expression}\n\n")
         output.append("Uptake:\n")
         uptake = self.env_flux[self.env_flux['Flux'] < 0].copy()
-        # uptake[f"{self.element}-Flux"] = uptake[f"{self.element}-Flux"] / uptake[f"{self.element}-Flux"].sum()
+        uptake[f"{self.element}-Flux"] = uptake[f"{self.element}-Flux"] / uptake[f"{self.element}-Flux"].sum()
         uptake["Flux"] = uptake["Flux"].abs()
         output.append(f"{uptake.reset_index().to_string(index=False)}\n\n")
         output.append("Secretion:\n")
-        secretion = self.env_flux[self.env_flux['Flux'] > 0].copy()
+        self.secretion = self.env_flux[self.env_flux['Flux'] > 0].copy()
+        self.secretion[f"{self.element}-Flux"] = secretion[f"{self.element}-Flux"] / secretion.reset_index()[f"{self.element}-Flux"].sum()
         output.append(f"{secretion.reset_index().to_string(index=False)}\n\n")
 
         for model in self.flux.index.get_level_values(0).unique():

@@ -1,30 +1,30 @@
 ,ID,Name,Type
 0,Escherichia coli str K 12 substr MG1655,Escherichia coli str K 12 substr MG1655,Organism
 1,Bacteroides thetaiotaomicron 3731,Bacteroides thetaiotaomicron 3731,Organism
-2,cl[e],Chloride,Metabolite
-3,glc_D[e],D-glucose,Metabolite
-4,ca2[e],calcium(2+),Metabolite
-5,h[e],proton,Metabolite
-6,h2[e],Hydrogen,Metabolite
-7,cobalt2[e],Co2+,Metabolite
-8,glyclt[e],glycolate,Metabolite
-9,ac[e],Acetate,Metabolite
+2,ca2[e],calcium(2+),Metabolite
+3,k[e],potassium,Metabolite
+4,for[e],Formate,Metabolite
+5,h2[e],Hydrogen,Metabolite
+6,cobalt2[e],Co2+,Metabolite
+7,thm[e],Thiamin,Metabolite
+8,mg2[e],magnesium,Metabolite
+9,co2[e],Carbon dioxide,Metabolite
 10,fe2[e],Fe2+,Metabolite
-11,succ[e],Succinate,Metabolite
-12,k[e],potassium,Metabolite
-13,pi[e],hydrogenphosphate,Metabolite
-14,zn2[e],Zinc,Metabolite
-15,thm[e],Thiamin,Metabolite
-16,cys_L[e],L-cysteine,Metabolite
-17,biomass[c],Produced biomass,Metabolite
-18,mn2[e],Mn2+,Metabolite
-19,urea[e],Urea,Metabolite
-20,co2[e],Carbon dioxide,Metabolite
-21,etoh[e],Ethanol,Metabolite
-22,so4[e],sulfate,Metabolite
-23,mg2[e],magnesium,Metabolite
-24,for[e],Formate,Metabolite
-25,fe3[e],Fe3+,Metabolite
-26,h2o[e],Water,Metabolite
-27,cu2[e],Cu2+,Metabolite
-28,nh4[e],Ammonium,Metabolite
+11,cl[e],Chloride,Metabolite
+12,nh4[e],Ammonium,Metabolite
+13,glyclt[e],glycolate,Metabolite
+14,so4[e],sulfate,Metabolite
+15,cu2[e],Cu2+,Metabolite
+16,fe3[e],Fe3+,Metabolite
+17,pi[e],hydrogenphosphate,Metabolite
+18,glc_D[e],D-glucose,Metabolite
+19,zn2[e],Zinc,Metabolite
+20,ac[e],Acetate,Metabolite
+21,cys_L[e],L-cysteine,Metabolite
+22,urea[e],Urea,Metabolite
+23,h2o[e],Water,Metabolite
+24,succ[e],Succinate,Metabolite
+25,biomass[c],Produced biomass,Metabolite
+26,etoh[e],Ethanol,Metabolite
+27,h[e],proton,Metabolite
+28,mn2[e],Mn2+,Metabolite
