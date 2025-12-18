@@ -10,8 +10,6 @@ gifba.egg-info/SOURCES.txt
 gifba.egg-info/dependency_links.txt
 gifba.egg-info/requires.txt
 gifba.egg-info/top_level.txt
-gifba/AGORA2_Models/Bacteroides_thetaiotaomicron_3731.mat
-gifba/AGORA2_Models/Escherichia_coli_str_K_12_substr_MG1655.mat
 gifba/Simple_Models/sim1a.json
 gifba/Simple_Models/sim1b.json
 gifba/Simple_Models/sim1c_1.json

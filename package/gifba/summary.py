@@ -23,9 +23,9 @@ class CommunitySummary:
         self.secretion = None
         self.element = None
         
-        self._generate(community, iter_shown, element)
+        self._generate(community, iter_shown)
 
-    def _generate(self, community, iter_shown, element):
+    def _generate(self, community, iter_shown):
         # check iter_shown is valid
         if self.iter_shown is not None:
             if not isinstance(self.iter_shown, (int, float)) or self.iter_shown < 0 or self.iter_shown >= self.iters:
@@ -60,19 +60,16 @@ class CommunitySummary:
         self.env_flux["Metabolite"] = self.env_flux["Exchange"].map(self.community.ex_to_met)
         self.env_flux = self.env_flux.set_index("Metabolite")
 
+
         # add element information
         metabolites = {m.id: m for m in self.community.exchange_metabolites}
-        self.env_flux[f"{element}-Number"] = [
-            metabolites[met_id].elements.get(element, 0) if met_id in metabolites else 0
+        self.env_flux[f"{self.element}-Number"] = [
+            metabolites[met_id].elements.get(self.element, 0) if met_id in metabolites else 0
             for met_id in self.env_flux.index
         ]
-        self.env_flux[f"{element}-Flux"] = self.env_flux[f"{element}-Number"] * self.env_flux["Flux"].abs()
-        total = self.env_flux[f"{element}-Flux"].sum()
+        self.env_flux[f"{self.element}-Flux"] = self.env_flux[f"{self.element}-Number"] * self.env_flux["Flux"].abs()
 
-        # convert to percentage
-        if total > 0.0:
-            self.env_flux[f"{element}-Flux"] /= total
-        self.env_flux[f"{element}-Flux"] = [f"{x:.2%}" for x in self.env_flux[f"{element}-Flux"]]
+        # remove unused fluxes
         self.env_flux = self.env_flux[self.env_flux['Flux'] != 0] # remove zero fluxes
 
         # create dfs for organisms
@@ -91,17 +88,13 @@ class CommunitySummary:
 
         # add element information
         metabolites = {m.id if pd.notnull(m.id) else m: m for m in self.community.exchange_metabolites}
-        self.flux[f"{element}-Number"] = [
-            metabolites[met_id].elements.get(element, 0) if met_id in metabolites else 0
+        self.flux[f"{self.element}-Number"] = [
+            metabolites[met_id].elements.get(self.element, 0) if met_id in metabolites else 0
             for met_id in self.flux.index.get_level_values("Metabolite")
         ]
-        self.flux[f"{element}-Flux"] = self.flux[f"{element}-Number"] * self.flux["Flux"].abs()
-        total = self.flux[f"{element}-Flux"].sum()
+        self.flux[f"{self.element}-Flux"] = self.flux[f"{self.element}-Number"] * self.flux["Flux"].abs()        
 
-        # convert to percentage
-        if total > 0.0:
-            self.flux[f"{element}-Flux"] /= total
-        self.flux[f"{element}-Flux"] = [f"{x:.2%}" for x in self.flux[f"{element}-Flux"]]
+        # remove unused fluxes
         self.flux = self.flux[self.flux['Flux'] != 0] # remove zero fluxes
 
         return
@@ -133,6 +126,7 @@ class CommunitySummary:
         output.append(f"{self.objective_total_expression}\n\n")
         output.append("Uptake:\n")
         uptake = self.env_flux[self.env_flux['Flux'] < 0].copy()
+        # uptake[f"{self.element}-Flux"] = uptake[f"{self.element}-Flux"] / uptake[f"{self.element}-Flux"].sum()
         uptake["Flux"] = uptake["Flux"].abs()
         output.append(f"{uptake.reset_index().to_string(index=False)}\n\n")
         output.append("Secretion:\n")
@@ -212,15 +206,3 @@ class CommunitySummary:
 
     
 
-
-class SamplingSummary:
-    def __init__(self, community, iter_shown=None, element="C"):
-        self.community = community
-        self.iter_shown = iter_shown
-        self.element = element
-
-    def generate(self):
-        self.cum_flux = pd.DataFrame(0, index=self.community.org_fluxes.index, columns=self.community.org_fluxes.columns)
-        for iter in range(self.community.iters):
-            for Mi in self.community.M[:, iter]:
-                print()
