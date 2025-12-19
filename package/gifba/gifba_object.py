@@ -100,14 +100,14 @@ class gifbaObject:
             a COBRApy model summary. Also formatting iteration information for a cytoscape-compatible
             node/edge table. 
     """
-    def __init__(self, models, media, rel_abund="equal", id=None):
-        
+    def __init__(self, models, media, rel_abund="equal", id=None, convergence_tradeoff=1):
         self.models = utils.check_models(models)
         self.media = media
         self.media = utils.check_media(self)
         self.size = len(self.models)
         self.rel_abund = utils.check_rel_abund(rel_abund, self.size)
         self.id = id
+        self.convergence_tradeoff = convergence_tradeoff
 
         # get obj rxn ids
         model_obj_rxns = []
@@ -134,6 +134,7 @@ class gifbaObject:
         self.method = utils.check_method(method)
         self.early_stop = early_stop
         self.v = v
+        self.iter_converged = None
 
         # create variables
         self.create_vars()
@@ -155,6 +156,7 @@ class gifbaObject:
                     self.env_fluxes.loc[(slice(iter+1, None),0), :] = self.env_fluxes.loc[(iter,0), :].values
 
                     if self.v: print("Converged at iteration", iter)
+                    self.iter_converged = iter
                     break
 
         # drop run col
@@ -251,8 +253,9 @@ class gifbaObject:
         env_tmp = self.env_fluxes.loc[iter, 0][:].to_numpy().reshape(-1, 1)   # (row, col) = (n_ex, 1)     # uptake = positive
         run_exs = self.org_fluxes.loc[:, iter, 0][self.env_fluxes.columns].to_numpy().T # (row, col) = (n_ex, n_org) # uptake = negative flux
         sum_org_flux = run_exs.sum(axis=1).reshape(-1, 1) # (n_ex, n_org) -> (n_ex, 1) sum across orgs
-
-        self.env_fluxes.loc[iter+1, 0] = (env_tmp + sum_org_flux).flatten().round(ROUND) # (n_ex, 1) + (n_ex, 1) -> (n_ex, 1)
+        scaled_sums = self.convergence_tradeoff * sum_org_flux
+        print("New convergence method update:")
+        self.env_fluxes.loc[iter+1, 0] = (env_tmp + scaled_sums).flatten().round(ROUND) # (n_ex, 1) + (n_ex, 1) -> (n_ex, 1)
 
 
         return
