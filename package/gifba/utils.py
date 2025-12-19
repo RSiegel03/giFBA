@@ -148,11 +148,14 @@ def check_models(models):
 		if isinstance(models, cb.Model):
 			models = [models]
 
+	models_list = []
 	for model in models:
 		if not isinstance(model, cb.Model):
 			raise ValueError(f"Model {model} is not a valid cobra.Model object.")
+		
+		models_list.append(model.copy())
 	
-	return models
+	return models_list
 
 def check_method(method):
 	if method is None:
