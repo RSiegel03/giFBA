@@ -161,6 +161,8 @@ class gifbaObject:
         self.org_fluxes = self.org_fluxes.droplevel("Run")
         self.env_fluxes = self.env_fluxes.droplevel("Run")
 
+        # 
+
         return self.env_fluxes, self.org_fluxes
 
     def create_vars(self, m_vals=[1,1]):
@@ -366,6 +368,4 @@ class gifbaObject:
     
 
     def summarize(self, iter_shown=None):
-        self.summary = CommunitySummary(self, iter_shown)
-
-        return self.summary
+        return CommunitySummary(self, iter_shown)
