@@ -108,6 +108,7 @@ class gifbaObject:
         self.rel_abund = utils.check_rel_abund(rel_abund, self.size)
         self.id = id
         self.convergence_tradeoff = convergence_tradeoff
+        self.iter_converged = None
 
         # get obj rxn ids
         model_obj_rxns = []
@@ -134,7 +135,6 @@ class gifbaObject:
         self.method = utils.check_method(method)
         self.early_stop = early_stop
         self.v = v
-        self.iter_converged = None
 
         # create variables
         self.create_vars()
