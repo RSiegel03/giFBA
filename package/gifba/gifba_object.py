@@ -100,14 +100,14 @@ class gifbaObject:
             a COBRApy model summary. Also formatting iteration information for a cytoscape-compatible
             node/edge table. 
     """
-    def __init__(self, models, media, rel_abund="equal", id=None, convergence_tradeoff=1):
+    def __init__(self, models, media, rel_abund="equal", id=None, step_size=1):
         self.models = utils.check_models(models)
         self.media = media
         self.media = utils.check_media(self)
         self.size = len(self.models)
         self.rel_abund = utils.check_rel_abund(rel_abund, self.size)
         self.id = id
-        self.convergence_tradeoff = convergence_tradeoff
+        self.step_size = step_size
         self.iter_converged = None
 
         # get obj rxn ids
@@ -311,7 +311,7 @@ class gifbaObject:
             elif self.method == "fba":
                 sol = self.models[model_idx].optimize()
                 
-            self.org_fluxes.loc[(model_idx, iter, 0), list(sol.fluxes.index)] = self.rel_abund[model_idx] * sol.fluxes.values * self.convergence_tradeoff
+            self.org_fluxes.loc[(model_idx, iter, 0), list(sol.fluxes.index)] = self.rel_abund[model_idx] * sol.fluxes.values * self.step_size
         # do nothing otherwise - already initiated as zeros!
         return
     
@@ -330,7 +330,8 @@ class gifbaObject:
 
         # check if environment fluxes are under-saturated
         is_overconsumed = np.zeros_like(total_org_flux)
-        is_overconsumed[env_tmp != 0] = -total_org_flux[np.abs(env_tmp) >= 1e-6].astype(np.longlong) / env_tmp[np.abs(env_tmp) >= 1e-6].astype(np.longlong) # only check non-zero env fluxes
+        with np.errstate(divide='ignore', invalid='ignore'): # ignore division by zero warnings
+            is_overconsumed[env_tmp != 0] = -total_org_flux[np.abs(env_tmp) >= 1e-6].astype(np.longlong) / env_tmp[np.abs(env_tmp) >= 1e-6].astype(np.longlong) # only check non-zero env fluxes
 
         # check if iteration uses more flux than available in environment
         if is_overconsumed.max().round(ROUND) > 1:
@@ -367,6 +368,14 @@ class gifbaObject:
                     rxn.upper_bound = ub_old - last_flux
         return
     
+
+    def __enter__(self):
+        """Context manager entry point."""
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        """Context manager exit point."""
+        return False
 
     def summarize(self, iter_shown=None):
         return CommunitySummary(self, iter_shown)
