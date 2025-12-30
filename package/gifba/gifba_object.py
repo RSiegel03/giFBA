@@ -253,9 +253,8 @@ class gifbaObject:
         env_tmp = self.env_fluxes.loc[iter, 0][:].to_numpy().reshape(-1, 1)   # (row, col) = (n_ex, 1)     # uptake = positive
         run_exs = self.org_fluxes.loc[:, iter, 0][self.env_fluxes.columns].to_numpy().T # (row, col) = (n_ex, n_org) # uptake = negative flux
         sum_org_flux = run_exs.sum(axis=1).reshape(-1, 1) # (n_ex, n_org) -> (n_ex, 1) sum across orgs
-        scaled_sums = self.convergence_tradeoff * sum_org_flux
-        print("New convergence method update:")
-        self.env_fluxes.loc[iter+1, 0] = (env_tmp + scaled_sums).flatten().round(ROUND) # (n_ex, 1) + (n_ex, 1) -> (n_ex, 1)
+
+        self.env_fluxes.loc[iter+1, 0] = (env_tmp + sum_org_flux).flatten().round(ROUND) # (n_ex, 1) + (n_ex, 1) -> (n_ex, 1)
 
 
         return
@@ -312,7 +311,7 @@ class gifbaObject:
             elif self.method == "fba":
                 sol = self.models[model_idx].optimize()
                 
-            self.org_fluxes.loc[(model_idx, iter, 0), list(sol.fluxes.index)] = self.rel_abund[model_idx] * sol.fluxes.values
+            self.org_fluxes.loc[(model_idx, iter, 0), list(sol.fluxes.index)] = self.rel_abund[model_idx] * sol.fluxes.values * self.convergence_tradeoff
         # do nothing otherwise - already initiated as zeros!
         return
     
