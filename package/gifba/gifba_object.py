@@ -161,6 +161,9 @@ class gifbaObject:
         self.org_fluxes = self.org_fluxes.droplevel("Run")
         self.env_fluxes = self.env_fluxes.droplevel("Run")
 
+        # cumulative sum across iterations
+        self.org_fluxes = self.org_fluxes.groupby(level=["Model"]).cumsum()
+
         # return results for total fluxes
         return self.env_fluxes.iloc[-1], self.org_fluxes.groupby(level=["Model"]).sum()
 
