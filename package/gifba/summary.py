@@ -38,7 +38,6 @@ class CommunitySummary:
         # pull cumulative organism fluxes
         self.community = community
         self.flux = self.community.org_fluxes.copy()
-        self.flux = self.flux.groupby(level='Model').cumsum()
         self.flux = self.flux.xs(self.iter_shown, level='Iteration')
 
         # extract objectives and create expressions to print
