@@ -1,80 +1,76 @@
 ,ID,Name,Type
 0,Bacteroides thetaiotaomicron 3731,Bacteroides thetaiotaomicron 3731,Organism
-1,Clostridium difficile R20291,Clostridium difficile R20291,Organism
-2,Clostridium hiranonis TO 931 DSM 13275,Clostridium hiranonis TO 931 DSM 13275,Organism
-3,Eggerthella lenta DSM 11767,Eggerthella lenta DSM 11767,Organism
-4,hspg_degr_13[e],Heparan sulfate degradation product 13,Metabolite
-5,so4[e],sulfate,Metabolite
-6,h2[e],Hydrogen,Metabolite
-7,ile_L[e],L-isoleucine,Metabolite
-8,sucr[e],Sucrose,Metabolite
-9,idour[e],L-iduronate,Metabolite
-10,k[e],potassium,Metabolite
-11,nac[e],Nicotinate,Metabolite
-12,for[e],Formate,Metabolite
-13,ppi[e],Diphosphate,Metabolite
-14,cgly[e],L-cysteinylglycine,Metabolite
-15,h2o[e],Water,Metabolite
-16,ac[e],Acetate,Metabolite
-17,arg_L[e],L-arginine,Metabolite
-18,thr_L[e],L-threonine,Metabolite
-19,spmd[e],Spermidine,Metabolite
-20,orn[e],Ornithine,Metabolite
-21,ca2[e],calcium(2+),Metabolite
-22,lys_L[e],L-lysine,Metabolite
-23,pro_L[e],L-proline,Metabolite
-24,leu_L[e],L-leucine,Metabolite
-25,sheme[e],Siroheme,Metabolite
-26,tyr_L[e],L-tyrosine,Metabolite
-27,trp_L[e],L-tryptophan,Metabolite
-28,cobalt2[e],Co2+,Metabolite
-29,pydx[e],Pyridoxal,Metabolite
-30,phe_L[e],L-phenylalanine,Metabolite
-31,pi[e],hydrogenphosphate,Metabolite
-32,cytd[e],Cytidine,Metabolite
-33,ocdca[e],octadecanoate (n-C18:0),Metabolite
-34,succ[e],Succinate,Metabolite
-35,val_L[e],L-valine,Metabolite
+1,Eggerthella lenta DSM 11767,Eggerthella lenta DSM 11767,Organism
+2,Clostridium difficile R20291,Clostridium difficile R20291,Organism
+3,Clostridium hiranonis TO 931 DSM 13275,Clostridium hiranonis TO 931 DSM 13275,Organism
+4,26dap_M[e],"meso-2,6-Diaminoheptanedioate",Metabolite
+5,fol[e],Folate,Metabolite
+6,pheme[e],Protoheme,Metabolite
+7,fe2[e],Fe2+,Metabolite
+8,thr_L[e],L-threonine,Metabolite
+9,pro_L[e],L-proline,Metabolite
+10,glc_D[e],D-glucose,Metabolite
+11,ser_L[e],L-serine,Metabolite
+12,h2o[e],Water,Metabolite
+13,glypro[e],Glycylproline,Metabolite
+14,pydx[e],Pyridoxal,Metabolite
+15,mg2[e],magnesium,Metabolite
+16,uri[e],Uridine,Metabolite
+17,glyphe[e],Glycylphenylalanine,Metabolite
+18,so4[e],sulfate,Metabolite
+19,mn2[e],Mn2+,Metabolite
+20,glyc3p[e],Glycerol 3-phosphate,Metabolite
+21,ribflv[e],Riboflavin,Metabolite
+22,thymd[e],Thymidine,Metabolite
+23,cytd[e],Cytidine,Metabolite
+24,trp_L[e],L-tryptophan,Metabolite
+25,zn2[e],Zinc,Metabolite
+26,but[e],Butyrate,Metabolite
+27,glu_L[e],L-glutamate,Metabolite
+28,biomass[c],Produced biomass,Metabolite
+29,pac[e],phenylacetate,Metabolite
+30,cu2[e],Cu2+,Metabolite
+31,metala[e],L-methionyl-L-alanine,Metabolite
+32,gly[e],Glycine,Metabolite
+33,k[e],potassium,Metabolite
+34,cl[e],Chloride,Metabolite
+35,pullulan1200[e],"pullulan (n=1200 repeat units, alpha-1,4 and alph-1,6 bounds)",Metabolite
 36,pnto_R[e],(R)-Pantothenate,Metabolite
-37,zn2[e],Zinc,Metabolite
-38,pheme[e],Protoheme,Metabolite
-39,fol[e],Folate,Metabolite
-40,h[e],proton,Metabolite
-41,cu2[e],Cu2+,Metabolite
-42,adn[e],Adenosine,Metabolite
-43,co2[e],Carbon dioxide,Metabolite
-44,nmn[e],NMN,Metabolite
-45,his_L[e],L-histidine,Metabolite
-46,but[e],Butyrate,Metabolite
-47,nh4[e],Ammonium,Metabolite
-48,ins[e],Inosine,Metabolite
-49,fe2[e],Fe2+,Metabolite
-50,ala_L[e],L-alanine,Metabolite
-51,etoh[e],Ethanol,Metabolite
-52,isoval[e],"Isovalerate, 3-Methylbutanoate",Metabolite
+37,nmn[e],NMN,Metabolite
+38,nac[e],Nicotinate,Metabolite
+39,cys_L[e],L-cysteine,Metabolite
+40,pi[e],hydrogenphosphate,Metabolite
+41,thm[e],Thiamin,Metabolite
+42,arg_L[e],L-arginine,Metabolite
+43,ile_L[e],L-isoleucine,Metabolite
+44,ca2[e],calcium(2+),Metabolite
+45,fe3[e],Fe3+,Metabolite
+46,urea[e],Urea,Metabolite
+47,co2[e],Carbon dioxide,Metabolite
+48,cobalt2[e],Co2+,Metabolite
+49,tyr_L[e],L-tyrosine,Metabolite
+50,ocdca[e],octadecanoate (n-C18:0),Metabolite
+51,for[e],Formate,Metabolite
+52,val_L[e],L-valine,Metabolite
 53,4hoxpacd[e],(4-hydroxyphenyl)acetaldehyde,Metabolite
-54,cys_L[e],L-cysteine,Metabolite
-55,ser_L[e],L-serine,Metabolite
-56,met_L[e],L-methionine,Metabolite
-57,hspg[e],heparan sulfate proteoglycan,Metabolite
-58,biomass[c],Produced biomass,Metabolite
-59,4abut[e],4-Aminobutanoate,Metabolite
-60,urea[e],Urea,Metabolite
-61,26dap_M[e],"meso-2,6-Diaminoheptanedioate",Metabolite
-62,na1[e],Sodium,Metabolite
-63,mg2[e],magnesium,Metabolite
-64,malt[e],Maltose,Metabolite
-65,gly[e],Glycine,Metabolite
-66,fru[e],D-Fructose,Metabolite
-67,fe3[e],Fe3+,Metabolite
-68,glyc3p[e],Glycerol 3-phosphate,Metabolite
-69,ribflv[e],Riboflavin,Metabolite
-70,pac[e],phenylacetate,Metabolite
-71,mn2[e],Mn2+,Metabolite
-72,glyasn[e],Glycyl-L-asparagine,Metabolite
-73,glu_L[e],L-glutamate,Metabolite
-74,thymd[e],Thymidine,Metabolite
-75,indole[e],Indole,Metabolite
-76,thm[e],Thiamin,Metabolite
-77,hspg_degr_6[e],Heparan sulfate degradation product 6,Metabolite
-78,cl[e],Chloride,Metabolite
+54,sheme[e],Siroheme,Metabolite
+55,ppi[e],Diphosphate,Metabolite
+56,his_L[e],L-histidine,Metabolite
+57,ala_L[e],L-alanine,Metabolite
+58,xylottr[e],"Xylooligosaccharide, xylotetraose",Metabolite
+59,ac[e],Acetate,Metabolite
+60,isobut[e],"Isobutyrate, 2-Methylpropanoate",Metabolite
+61,spmd[e],Spermidine,Metabolite
+62,asn_L[e],L-asparagine,Metabolite
+63,nh4[e],Ammonium,Metabolite
+64,cgly[e],L-cysteinylglycine,Metabolite
+65,met_L[e],L-methionine,Metabolite
+66,o2[e],O2,Metabolite
+67,orn[e],Ornithine,Metabolite
+68,indole[e],Indole,Metabolite
+69,etoh[e],Ethanol,Metabolite
+70,fum[e],Fumarate,Metabolite
+71,adn[e],Adenosine,Metabolite
+72,h[e],proton,Metabolite
+73,lys_L[e],L-lysine,Metabolite
+74,leu_L[e],L-leucine,Metabolite

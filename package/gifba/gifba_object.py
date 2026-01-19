@@ -109,6 +109,7 @@ class gifbaObject:
         self.id = id
         self.step_size = step_size
         self.iter_converged = None
+        self.sim_type = "standard"
 
         # get obj rxn ids
         model_obj_rxns = []
@@ -141,6 +142,7 @@ class gifbaObject:
 
         # run iterations
         for iter in range(self.iters):
+            self.iter= iter
             if self.v: print("Iteration:", iter)
 
             # update media for the iteration
@@ -166,8 +168,9 @@ class gifbaObject:
         # cumulative sum across iterations
         self.org_fluxes = self.org_fluxes.groupby(level=["Model"]).cumsum()
 
+
         # return results for total fluxes
-        return self.env_fluxes.iloc[-1], self.org_fluxes.iloc[-1]
+        return self.env_fluxes.iloc[-1], self.org_fluxes[self.org_fluxes.index.get_level_values('Iteration') == self.iters - 1]
 
     def create_vars(self, m_vals=[1,1]):
         """Initialize variables for giFBA.
@@ -182,6 +185,7 @@ class gifbaObject:
         self.exchanges = []
         self.org_exs = set()
         self.org_rxns = set()
+        self.biomass_exs = set()
 
         # rxns/echanges/boundary mets per model
         for model in self.models:
@@ -198,12 +202,17 @@ class gifbaObject:
                     self.metid_to_name[mets[0].id] = mets[0].name if pd.notnull(mets[0].name) else mets[0].id
                     self.exchange_metabolites.extend(mets)
                     self.exchanges.append(rxn.id)
+
+                    # add biomass exs to separate set
+                    if "biomass" in list(rxn.metabolites.keys())[0].id.lower():
+                        self.biomass_exs = self.biomass_exs | {rxn.id}
         
         # convert to attribute lists
         self.org_exs = list(self.org_exs)
         self.org_rxns = list(self.org_rxns)
         self.exchange_metabolites = list(set(self.exchange_metabolites))
         self.exchanges = list(set(self.exchanges))
+        self.biomass_exs = list(self.biomass_exs)
 
         # initialize env
         self.media = utils.check_media(self)
@@ -236,13 +245,14 @@ class gifbaObject:
         self.org_fluxes = pd.DataFrame(self.org_fluxes, columns=self.org_rxns, index=multi_idx)	# convert to interprettable df
         self.org_fluxes.index.names = ["Model", "Iteration", "Run"]
 
+
         # store model names
         self.model_names = {model_idx: model.name for model_idx, model in enumerate(self.models)}
 
         return
         
 
-    def _update_media(self, iter ):
+    def _update_media(self, iter):
         """
         Update the media (f_n,j) for each iteration
         f_{n+1, j} = f_{n,j} + sum(V_{n,i,j})
@@ -255,12 +265,21 @@ class gifbaObject:
         # update media: f_n+1 = f_n - sum(v_nij)
         env_tmp = self.env_fluxes.loc[iter, 0][:].to_numpy().reshape(-1, 1)   # (row, col) = (n_ex, 1)     # uptake = positive
         run_exs = self.org_fluxes.loc[:, iter, 0][self.env_fluxes.columns].to_numpy().T # (row, col) = (n_ex, n_org) # uptake = negative flux
-        sum_org_flux = run_exs.sum(axis=1).reshape(-1, 1) # (n_ex, n_org) -> (n_ex, 1) sum across orgs
+        sum_org_flux = run_exs.sum(axis=1).reshape(-1, 1) # (n_ex, n_org) -> (n_ex, ) sum across orgs
 
-        self.env_fluxes.loc[iter+1, 0] = (env_tmp + sum_org_flux).flatten().round(ROUND) # (n_ex, 1) + (n_ex, 1) -> (n_ex, 1)
-
-
+        if self.sim_type == "standard":
+            self.env_fluxes.loc[iter+1, 0] = (env_tmp + sum_org_flux).flatten().round(ROUND) # (n_ex, 1) + (n_ex, 1) -> (n_ex, 1)
+        elif self.sim_type == "consist_check":
+            env_tmp = self.env_fluxes.loc[0, 0][:].to_numpy().reshape(-1, 1)
+            run_exs = self.org_fluxes.loc[:, iter, 0][self.env_fluxes.columns].to_numpy().T # (row, col) = (n_ex, n_org) # uptake = negative flux
+            run_exs[run_exs < 0] = 0 # only secretion counts
+            sum_org_flux = run_exs.sum(axis=1).reshape(-1, 1)
+            # sum_org_flux[sum_org_flux < 0] = 0 # no uptake into env
+            self.env_fluxes.loc[iter+1, 0] = (env_tmp + sum_org_flux).flatten().round(ROUND) # (n_ex, 1) + (n_ex, 1) -> (n_ex, 1)
+            biomass_mask = np.isin(self.env_fluxes.columns, self.biomass_exs) # biomass will not be cumulative
+            self.env_fluxes.loc[(iter+1, 0), self.env_fluxes.columns[biomass_mask]] = sum_org_flux[biomass_mask].flatten().round(ROUND)
         return
+
 
     def _flux_function(self, iter):
         """
@@ -285,7 +304,8 @@ class gifbaObject:
         self._check_overconsumption(iter)
 
         # once all orgs have been simulated without overconsumption, update internal rxns
-        self._update_internal_reactions(iter)
+        if self.sim_type == "standard" and not(self._is_rerun):
+            self._update_internal_reactions(iter)
 
         return
 
@@ -298,6 +318,9 @@ class gifbaObject:
             mask = np.array(self.org_exs) == ex.id
             if mask.any():  # Check if the exchange reaction exists in org_exs
                 ex.lower_bound = -self._env_scaling_factors[model_idx, mask] * self.env_fluxes.loc[iter, 0][ex.id]
+    
+                print(ex.id, ex.lower_bound)
+           
 
         return
 
@@ -308,13 +331,14 @@ class gifbaObject:
         """
         # run pFBA
         sol1 = self.models[model_idx].slim_optimize()
+        print("Objective value:", sol1)
         if sol1 > GROWTH_MIN_OBJ:
             if self.method == "pfba":
                 sol = cb.flux_analysis.parsimonious.pfba(self.models[model_idx])
             elif self.method == "fba":
                 sol = self.models[model_idx].optimize()
-                
-            self.org_fluxes.loc[(model_idx, iter, 0), list(sol.fluxes.index)] = self.rel_abund[model_idx] * sol.fluxes.values * self.step_size
+            
+            self.org_fluxes.loc[(model_idx, iter, 0), list(sol.fluxes.index)] = self.rel_abund[model_idx] * sol.fluxes.values 
         # do nothing otherwise - already initiated as zeros!
         return
     
@@ -358,7 +382,7 @@ class gifbaObject:
         """
         for model_idx in range(self.size):
             for rxn in self.models[model_idx].reactions:
-                if not(rxn.boundary):
+                if not(rxn in self.models[model_idx].exchanges):
                     # store previous bounds
                     lb_old = rxn.lower_bound
                     ub_old = rxn.upper_bound
@@ -382,3 +406,53 @@ class gifbaObject:
 
     def summarize(self, iter_shown=None):
         return CommunitySummary(self, iter_shown)
+
+    def consist_check(self, iters, method, early_stop=True, v=False):
+        """ After each iteration, add only the new fluxes, 
+        and do not remove uptaken ones. If fluxes remains 
+        the same, update the environment, otherwise- re-do this process """
+        self.iters = utils.check_iters(iters)
+        self.method = utils.check_method(method)
+        self.early_stop = early_stop
+        self.v = v
+
+        # create variables
+        self.create_vars()
+
+        # run iterations
+        for iter in range(self.iters):
+            self.iter = iter
+            if self.v: print("Iteration:", iter)
+
+            # update media for the iteration
+            self._is_rerun = False # reset re-run flag for overconsumption
+            self.sim_type = "consist_check"
+            self._update_media(iter)# maybe change name
+
+            # check early stopping condition
+            if self.early_stop and self.iter > 0:
+                if self.v: print("Checking Convergence...")
+                deltas = self.env_fluxes.loc[(iter+1, 0), :] - self.env_fluxes.loc[(iter, 0), :]
+                org_flux_tmp = self.org_fluxes.groupby(level="Model").diff().loc[:, iter, 0]
+                # print(iter+1, iter, deltas, org_flux_tmp)
+                if np.all(np.abs(deltas) < 1e-6) and np.all(np.abs(org_flux_tmp) < 1e-6):
+                    # copy last iter to all future iters     
+                    self.env_fluxes.loc[(slice(iter+1, None),0), :] = self.env_fluxes.loc[(iter,0), :].values
+
+
+
+                    if self.v: print("Consistent at iteration", iter)
+                    self.iter_converged = iter
+                    break
+
+        # drop run col
+        self.org_fluxes = self.org_fluxes.droplevel("Run")
+        self.env_fluxes = self.env_fluxes.droplevel("Run")
+
+        # change env fluxes
+        self.env_fluxes = self.env_fluxes
+        
+
+        # return results for total fluxes
+        return self.env_fluxes.iloc[-1], self.org_fluxes.iloc[-self.size:]
+
