@@ -110,6 +110,7 @@ class gifbaObject:
         self.step_size = step_size
         self.iter_converged = None
         self.sim_type = "standard"
+        self.flow = None
 
         # get obj rxn ids
         model_obj_rxns = []
@@ -119,7 +120,7 @@ class gifbaObject:
         self.objective_rxns = dict(zip(range(self.size), 
                                       model_obj_rxns))
 
-    def run_gifba(self, iters, method, early_stop=True, v=False):
+    def run_gifba(self, iters, method, flow = 0, early_stop=True, v=False):
         """_summary_
 
         Args:
@@ -136,6 +137,7 @@ class gifbaObject:
         self.method = utils.check_method(method)
         self.early_stop = early_stop
         self.v = v
+        self.flow = flow
 
         # create variables
         self.create_vars()
@@ -152,7 +154,8 @@ class gifbaObject:
             # check early stopping condition
             if self.early_stop:
                 if self.v: print("Checking Convergence...")
-                delta = self.env_fluxes.loc[iter+1, 0] - self.env_fluxes.loc[iter, 0]
+                env_norm = self.env_fluxes / (1 + iter * self.flow)
+                delta = env_norm.loc[iter+1, 0] - env_norm.loc[iter, 0]
                 if np.all(np.abs(delta) < 1e-6):
                     # copy last iter to all future iters
                     self.env_fluxes.loc[(slice(iter+1, None),0), :] = self.env_fluxes.loc[(iter,0), :].values
@@ -160,14 +163,22 @@ class gifbaObject:
                     if self.v: print("Converged at iteration", iter)
                     self.iter_converged = iter
                     break
+        
+        if self.iter_converged is None:
+            self.iter_converged = self.iters - 1
+        print("Total iterations run:", self.iter_converged)
 
         # drop run col
         self.org_fluxes = self.org_fluxes.droplevel("Run")
         self.env_fluxes = self.env_fluxes.droplevel("Run")
+
         
         # cumulative sum across iterations
         self.org_fluxes = self.org_fluxes.groupby(level=["Model"]).cumsum()
 
+        # normalize 
+        # self.env_fluxes = self.env_fluxes / (1 + self.iter_converged * self.flow)
+        # self.org_fluxes = self.org_fluxes / (self.iter_converged * self.flow)
 
         # return results for total fluxes
         return self.env_fluxes.iloc[-1], self.org_fluxes[self.org_fluxes.index.get_level_values('Iteration') == self.iters - 1]
@@ -268,16 +279,17 @@ class gifbaObject:
         sum_org_flux = run_exs.sum(axis=1).reshape(-1, 1) # (n_ex, n_org) -> (n_ex, ) sum across orgs
 
         if self.sim_type == "standard":
-            self.env_fluxes.loc[iter+1, 0] = (env_tmp + sum_org_flux).flatten().round(ROUND) # (n_ex, 1) + (n_ex, 1) -> (n_ex, 1)
-        elif self.sim_type == "consist_check":
-            env_tmp = self.env_fluxes.loc[0, 0][:].to_numpy().reshape(-1, 1)
-            run_exs = self.org_fluxes.loc[:, iter, 0][self.env_fluxes.columns].to_numpy().T # (row, col) = (n_ex, n_org) # uptake = negative flux
-            run_exs[run_exs < 0] = 0 # only secretion counts
-            sum_org_flux = run_exs.sum(axis=1).reshape(-1, 1)
-            # sum_org_flux[sum_org_flux < 0] = 0 # no uptake into env
-            self.env_fluxes.loc[iter+1, 0] = (env_tmp + sum_org_flux).flatten().round(ROUND) # (n_ex, 1) + (n_ex, 1) -> (n_ex, 1)
-            biomass_mask = np.isin(self.env_fluxes.columns, self.biomass_exs) # biomass will not be cumulative
-            self.env_fluxes.loc[(iter+1, 0), self.env_fluxes.columns[biomass_mask]] = sum_org_flux[biomass_mask].flatten().round(ROUND)
+            self.env_fluxes.loc[iter+1, 0] = ((1-self.flow) * (env_tmp +  sum_org_flux) + (self.flow * self.env_fluxes.loc[0,0].to_numpy().reshape(-1, 1))).flatten().round(ROUND) # (n_ex, 1) + (n_ex, 1) -> (n_ex, 1)
+
+        # elif self.sim_type == "consist_check":
+            # env_tmp = self.env_fluxes.loc[0, 0][:].to_numpy().reshape(-1, 1)
+            # run_exs = self.org_fluxes.loc[:, iter, 0][self.env_fluxes.columns].to_numpy().T # (row, col) = (n_ex, n_org) # uptake = negative flux
+            # run_exs[run_exs < 0] = 0 # only secretion counts
+            # sum_org_flux = run_exs.sum(axis=1).reshape(-1, 1)
+            # # sum_org_flux[sum_org_flux < 0] = 0 # no uptake into env
+            # self.env_fluxes.loc[iter+1, 0] = (env_tmp + sum_org_flux).flatten().round(ROUND) # (n_ex, 1) + (n_ex, 1) -> (n_ex, 1)
+            # biomass_mask = np.isin(self.env_fluxes.columns, self.biomass_exs) # biomass will not be cumulative
+            # self.env_fluxes.loc[(iter+1, 0), self.env_fluxes.columns[biomass_mask]] = sum_org_flux[biomass_mask].flatten().round(ROUND)
         return
 
 
@@ -319,7 +331,7 @@ class gifbaObject:
             if mask.any():  # Check if the exchange reaction exists in org_exs
                 ex.lower_bound = -self._env_scaling_factors[model_idx, mask] * self.env_fluxes.loc[iter, 0][ex.id]
     
-                print(ex.id, ex.lower_bound)
+                # print(ex.id, ex.lower_bound)
            
 
         return
