@@ -154,11 +154,19 @@ class gifbaObject:
             # check early stopping condition
             if self.early_stop:
                 if self.v: print("Checking Convergence...")
-                env_norm = self.env_fluxes / (1 + iter * self.flow)
-                delta = env_norm.loc[iter+1, 0] - env_norm.loc[iter, 0]
+                env_tmp = self.env_fluxes
+                delta = env_tmp.loc[iter+1, 0] - env_tmp.loc[iter, 0]
                 if np.all(np.abs(delta) < 1e-6):
                     # copy last iter to all future iters
                     self.env_fluxes.loc[(slice(iter+1, None),0), :] = self.env_fluxes.loc[(iter,0), :].values
+                    
+                    # copy last iter to all future iters
+                    vals = self.org_fluxes.loc[(slice(None),iter,0), :].values
+                    n_future = self.iters - (iter + 1)
+                    if n_future > 0:
+                        tiled = np.tile(vals, (n_future, 1))  # shape (n_future * n_models, n_rxns)
+                        self.org_fluxes.iloc[-(n_future*self.size):] = tiled
+
 
                     if self.v: print("Converged at iteration", iter)
                     self.iter_converged = iter
@@ -171,17 +179,21 @@ class gifbaObject:
         # drop run col
         self.org_fluxes = self.org_fluxes.droplevel("Run")
         self.env_fluxes = self.env_fluxes.droplevel("Run")
-
         
         # cumulative sum across iterations
-        self.org_fluxes = self.org_fluxes.groupby(level=["Model"]).cumsum()
+        # self.org_fluxes = self.org_fluxes.groupby(level=["Model"]).cumsum()
 
         # normalize 
-        # self.env_fluxes = self.env_fluxes / (1 + self.iter_converged * self.flow)
-        # self.org_fluxes = self.org_fluxes / (self.iter_converged * self.flow)
+        # self.org_fluxes = self.org_fluxes.apply(
+        #     lambda col: col / (1 + self.org_fluxes.index.get_level_values('Iteration') * self.flow),
+        #     axis=0)
+        
+        # account for flow factor (remove flow for all iters after 0)
+        # self.env_fluxes.loc[(slice(1, None)), :] -= self.flow * self.env_fluxes.loc[0, :].values
+        # self.env_fluxes.loc[(slice(1, None)), :] *= 1/ (1-self.flow)
 
         # return results for total fluxes
-        return self.env_fluxes.iloc[-1], self.org_fluxes[self.org_fluxes.index.get_level_values('Iteration') == self.iters - 1]
+        return self.env_fluxes.iloc[-1], self.org_fluxes.iloc[-self.size:]
 
     def create_vars(self, m_vals=[1,1]):
         """Initialize variables for giFBA.
@@ -266,7 +278,7 @@ class gifbaObject:
     def _update_media(self, iter):
         """
         Update the media (f_n,j) for each iteration
-        f_{n+1, j} = f_{n,j} + sum(V_{n,i,j})
+        f_{n+1, j} =(1-flow)( f_{n,j} + sum(V_{n,i,j}) ) + flow*(f_{0,j})
         """
 
 
@@ -281,15 +293,15 @@ class gifbaObject:
         if self.sim_type == "standard":
             self.env_fluxes.loc[iter+1, 0] = ((1-self.flow) * (env_tmp +  sum_org_flux) + (self.flow * self.env_fluxes.loc[0,0].to_numpy().reshape(-1, 1))).flatten().round(ROUND) # (n_ex, 1) + (n_ex, 1) -> (n_ex, 1)
 
-        # elif self.sim_type == "consist_check":
-            # env_tmp = self.env_fluxes.loc[0, 0][:].to_numpy().reshape(-1, 1)
-            # run_exs = self.org_fluxes.loc[:, iter, 0][self.env_fluxes.columns].to_numpy().T # (row, col) = (n_ex, n_org) # uptake = negative flux
-            # run_exs[run_exs < 0] = 0 # only secretion counts
-            # sum_org_flux = run_exs.sum(axis=1).reshape(-1, 1)
-            # # sum_org_flux[sum_org_flux < 0] = 0 # no uptake into env
-            # self.env_fluxes.loc[iter+1, 0] = (env_tmp + sum_org_flux).flatten().round(ROUND) # (n_ex, 1) + (n_ex, 1) -> (n_ex, 1)
-            # biomass_mask = np.isin(self.env_fluxes.columns, self.biomass_exs) # biomass will not be cumulative
-            # self.env_fluxes.loc[(iter+1, 0), self.env_fluxes.columns[biomass_mask]] = sum_org_flux[biomass_mask].flatten().round(ROUND)
+        elif self.sim_type == "consist_check":
+            env_tmp = self.env_fluxes.loc[0, 0][:].to_numpy().reshape(-1, 1)
+            run_exs = self.org_fluxes.loc[:, iter, 0][self.env_fluxes.columns].to_numpy().T # (row, col) = (n_ex, n_org) # uptake = negative flux
+            run_exs[run_exs < 0] = 0 # only secretion counts
+            sum_org_flux = run_exs.sum(axis=1).reshape(-1, 1)
+            # sum_org_flux[sum_org_flux < 0] = 0 # no uptake into env
+            self.env_fluxes.loc[iter+1, 0] = (env_tmp + sum_org_flux).flatten()#.round(ROUND) # (n_ex, 1) + (n_ex, 1) -> (n_ex, 1)
+            biomass_mask = np.isin(self.env_fluxes.columns, self.biomass_exs) # biomass will not be cumulative
+            self.env_fluxes.loc[(iter+1, 0), self.env_fluxes.columns[biomass_mask]] = sum_org_flux[biomass_mask].flatten()#.round(ROUND)
         return
 
 
@@ -302,6 +314,7 @@ class gifbaObject:
             self._env_scaling_factors = np.ones((self.size, len(self.org_exs)))  # initialize update rate (used to scale ex flux bounds
             for model_idx in range(self.size):
                 self._env_scaling_factors[model_idx, :] = self._env_scaling_factors[model_idx, :] / self.rel_abund[model_idx]
+   
 
         # simulate each organism
         for model_idx in range(self.size):
@@ -370,13 +383,13 @@ class gifbaObject:
         # check if environment fluxes are under-saturated
         is_overconsumed = np.zeros_like(total_org_flux)
         with np.errstate(divide='ignore', invalid='ignore'): # ignore division by zero warnings
-            is_overconsumed[env_tmp != 0] = -total_org_flux[np.abs(env_tmp) >= 1e-6].astype(np.longlong) / env_tmp[np.abs(env_tmp) >= 1e-6].astype(np.longlong) # only check non-zero env fluxes
+            is_overconsumed[env_tmp != 0] = -total_org_flux[np.abs(env_tmp) >= 1e-6].astype(np.float64) / env_tmp[np.abs(env_tmp) >= 1e-6].astype(np.float64) # only check non-zero env fluxes
 
         # check if iteration uses more flux than available in environment
         if is_overconsumed.max().round(ROUND) > 1:
             ex_over = np.argmax(is_overconsumed) # index of flux causing over-consumed
 
-            if self.v: print(self.env_fluxes.columns[ex_over], "over-consumed by factor of", is_overconsumed.max().round(ROUND))
+            if self.v: print(self.env_fluxes.columns[ex_over], f"over-consumed by factor of {is_overconsumed.max().round(ROUND):.3f}")
 
             # adjust only over-consumed bound
             for model_idx in range(self.size):
@@ -467,4 +480,3 @@ class gifbaObject:
 
         # return results for total fluxes
         return self.env_fluxes.iloc[-1], self.org_fluxes.iloc[-self.size:]
-
