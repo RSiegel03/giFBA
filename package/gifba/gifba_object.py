@@ -409,9 +409,6 @@ class gifbaObject:
             self.rerun_list = []
             self.iter_list = []
 
-
-
-
         # check if iteration uses more flux than available in environment
         if not self._is_rerun:
             self.rerun_ct=0
@@ -500,53 +497,9 @@ class gifbaObject:
 
         return
     
+
     def _update_internal_reactions(self, iter):
-        """if is_overconsumed.max().round(ROUND) != 1:
-            ex_over = np.argmax(is_overconsumed) # index of flux causing over-consumed
-
-            print(self.env_fluxes.columns[ex_over], f"over-consumed by factor of {is_overconsumed.max().round(ROUND):.3f}")
-
-            # adjust only over-consumed bound
-            x_denom = 0
-            for model_idx in range(self.size):
-                lb_ij = self.models[model_idx].reactions.get_by_id(self.env_fluxes.columns[ex_over]).lower_bound
-                V_ij = run_exs[ex_over, model_idx]
-                a_i = self.rel_abund[model_idx]
-                x_denom += V_ij / lb_ij
-
-                print("Model idx", model_idx)
-                print("a_i:", a_i)
-                print("V_ij:", V_ij, "---- V_ij = v_ij * a_i")
-                print("lb_ij:", lb_ij)
-            
-            X_now = env_tmp[ex_over, 0]/x_denom
-            OC_now = is_overconsumed[ex_over, 0]
-            print("X_now: ", X_now)
-            print("OC_now: ", OC_now)
-
-            if not(self._is_rerun):
-                X_old = 0
-                self.OC_old = 0
-            else:
-                X_old = self._env_scaling_factors[0, ex_over] * env_tmp[ex_over, 0]
-
-            print("X_old: ", X_old)
-            print("OC_old: ", self.OC_old)
-
-            m = (X_now - X_old) / (OC_now - self.OC_old)
-            b = X_now - m * OC_now
-            X_new = m * 1 + b  # new env bound at OC = 1
-
-            self._env_scaling_factors[:, ex_over] = X_new / env_tmp[ex_over, 0]
-
-            
-
-            
-            print("X_new: ", X_new)
-            self.ex_over = ex_over
-            # self._env_scaling_factors[:, ex_over] = 1 / x_denom
-            # self._env_scaling_factors[model_idx, ex_over] = (run_exs[ex_over, model_idx] / (run_exs[ex_over, :].T @ self.rel_abund))
-            # re-run flux function 
+        """
         Update internal reactions based on total flux
         """
         for model_idx in range(self.size):
@@ -605,33 +558,29 @@ class gifbaObject:
                     # check if last (-1) and per+1 iteration from end are the same (accounting for rounding) 
                     env_delta = self.env_fluxes.iloc[iter].values - self.env_fluxes.iloc[iter-per].values
                     org_delta = self.org_fluxes.iloc[self.size*iter:self.size*(iter+1)].values - self.org_fluxes.iloc[self.size*(iter-per):self.size*(iter-per+1)].values
+                    
                     if np.all(np.abs(org_delta) < 1e-6) and np.all(np.abs(env_delta) < 1e-6):
                         self.periodicity = per
-                        # inside = True # just ensure findign the smallest periodicity if multiple exist
-                        self.env_fluxes.loc[(slice(iter+1, None),0), :] = self.env_fluxes.loc[(iter,0), :].values
                         self.iter_converged = iter
-
                         break
+
                 if self.iter_converged is not None:
                     if self.v: print("Converged at iteration", iter)
                     break
                         
-
-                # deltas = self.env_fluxes.loc[(iter+1, 0), :] - self.env_fluxes.loc[(iter, 0), :]
-                # org_flux_tmp = self.org_fluxes.groupby(level="Model").diff().loc[:, iter, 0]
-                # if np.all(np.abs(deltas) < 1e-6) and np.all(np.abs(org_flux_tmp) < 1e-6):
-                #     # copy last iter to all future iters     
-                #     self.env_fluxes.loc[(slice(iter+1, None),0), :] = self.env_fluxes.loc[(iter,0), :].values
-
-
-
-                #     if self.v: print("Consistent at iteration", iter)
-                #     self.iter_converged = iter
-                #     break
-
         # drop run col
         self.org_fluxes = self.org_fluxes.droplevel("Run")
         self.env_fluxes = self.env_fluxes.droplevel("Run")
+
+        # copy converged rows to end of iterations after convergence (if applicable)
+        if self.iter_converged is not None:
+            for iters_copy in range(self.iter_converged, self.iters):
+                # org fluxes
+                vals = self.org_fluxes.iloc[self.size*(iters_copy-self.periodicity):self.size*(iters_copy-self.periodicity+1), :].values
+                self.org_fluxes.iloc[self.size*iters_copy:self.size*(iters_copy+1), :] = vals
+
+                # env fluxes
+                self.env_fluxes.loc[iters_copy+1, :] = self.env_fluxes.loc[iters_copy+1-self.periodicity, :].values
 
         # check periodic/adjust
         env_final, org_final = self.average_periodicity()
@@ -641,33 +590,14 @@ class gifbaObject:
     
     def average_periodicity(self):
         """Calculate the average periodicity of the system based on the environmental fluxes."""
-        # Calculate the difference in environmental fluxes between iterations
-        # env_flux_diff = self.env_fluxes.groupby(level="Iteration").diff().iloc[1:]  # Skip the first iteration (initial conditions)
-
-        # if convergence, just return last iteration
-        if self.iter_converged is not None:
-            periodicity = 1
-
-        # if no convergence, check for periodicity
-        else:
-            inside = False
-            for per in range(1, self.iters+1):
-                print(f"Checking periodicity of {per} iterations...")
-                # check if last (-1) and per+1 iteration from end are the same (accounting for rounding) 
-                env_delta = self.env_fluxes.iloc[-1].values - self.env_fluxes.iloc[-(per+1)].values
-                org_delta = self.org_fluxes.iloc[-self.size:].values - self.org_fluxes.iloc[-(per+1)*self.size:-(per)*self.size].values
-                if np.all(np.abs(org_delta) < 1e-6) and np.all(np.abs(env_delta) < 1e-6) and not inside:
-                    periodicity = per
-                    inside = True # just ensure findign the smallest periodicity if multiple exist
-                    break
-        if periodicity == self.iters:
+        # if no convergence, give warning and return average of all iterations
+        if self.iter_converged is None:
             print("Model did not converge or show periodicity within the iteration limit, results may be unreliable.")
             print("All iterations will be used for flux calculations, but consider increasing the number of iterations or checking model setup.")
         
-        print("Model is periodic and average of the last", periodicity, "iterations will be used for flux calculations.")
+        print("Model is periodic and average of the last", self.periodicity, "iterations will be used for flux calculations.")
         
         # calculate average for the period size
-        env_flux_avg = self.env_fluxes.loc[(slice(self.iters - periodicity, self.iters -1)), :].mean()
-        org_flux_avg = self.org_fluxes.iloc[-periodicity * self.size:].groupby(level="Model").mean()
-
+        env_flux_avg = self.env_fluxes.loc[(slice(self.iters - self.periodicity, self.iters -1)), :].mean()
+        org_flux_avg = self.org_fluxes.iloc[-self.periodicity * self.size:].groupby(level="Model").mean()
         return env_flux_avg, org_flux_avg

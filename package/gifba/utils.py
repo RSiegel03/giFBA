@@ -26,6 +26,7 @@ def load_simple_models(number):
 		"4a": ["sim4a_1.json", "sim4a_2.json"],
 		"5a": ["sim5a_1.json", "sim5a_2.json"],
 		"test2": ["test2_sim_1.json", "test2_sim_2.json"],
+		"test3": ["test3_sim_1.json", "test3_sim_2.json", "test3_sim_3.json"]
 
 	}
 

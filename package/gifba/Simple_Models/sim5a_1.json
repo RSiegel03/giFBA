@@ -6,7 +6,7 @@
 "compartment":"e"
 },
 {
-"id":"C_e",
+"id":"B_e",
 "name":"",
 "compartment":"e"
 },
@@ -16,7 +16,7 @@
 "compartment":"c"
 },
 {
-"id":"C_c",
+"id":"B_c",
 "name":"",
 "compartment":"c"
 },
@@ -43,10 +43,10 @@
 "gene_reaction_rule":""
 },
 {
-"id":"Ex_C",
+"id":"Ex_B",
 "name":"",
 "metabolites":{
-"C_e":-1
+"B_e":-1
 },
 "lower_bound":-10,
 "upper_bound":1000,
@@ -64,11 +64,11 @@
 "gene_reaction_rule":""
 },
 {
-"id":"T_C",
+"id":"T_B",
 "name":"",
 "metabolites":{
-"C_c":-1,
-"C_e":1
+"B_c":-1,
+"B_e":1
 },
 "lower_bound":-1000,
 "upper_bound":1000,
@@ -92,7 +92,7 @@
 "metabolites":{
 "A_c":-1,
 "biomass1":1,
-"C_c": 1
+"B_c": 1
 },
 "lower_bound":0,
 "upper_bound":1000,
