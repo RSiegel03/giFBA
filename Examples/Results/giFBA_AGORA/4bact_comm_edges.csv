@@ -1,184 +1,171 @@
 ,Source,Target,Type,Value
-0,Bacteroides thetaiotaomicron 3731,hspg_degr_13[e],Secretion,0.17295033332254664
-1,Clostridium difficile R20291,so4[e],Uptake,0.03641627122690768
-2,Clostridium hiranonis TO 931 DSM 13275,so4[e],Uptake,0.03904699999998229
-3,Bacteroides thetaiotaomicron 3731,so4[e],Secretion,2.035705499870574
-4,Eggerthella lenta DSM 11767,so4[e],Uptake,0.015482499999961876
-5,Bacteroides thetaiotaomicron 3731,h2[e],Secretion,128.71709898950385
-6,Clostridium difficile R20291,ile_L[e],Uptake,1.6217117710765672
-7,Clostridium hiranonis TO 931 DSM 13275,ile_L[e],Uptake,1.4127499999993594
-8,Eggerthella lenta DSM 11767,ile_L[e],Uptake,1.6349199999959743
-9,Clostridium hiranonis TO 931 DSM 13275,sucr[e],Uptake,1.9239589999981546
-10,Bacteroides thetaiotaomicron 3731,sucr[e],Uptake,58.11130035738054
-11,Bacteroides thetaiotaomicron 3731,idour[e],Secretion,0.3459006666450933
-12,Clostridium difficile R20291,k[e],Uptake,0.03641627122690768
-13,Clostridium hiranonis TO 931 DSM 13275,k[e],Uptake,0.03904699999998229
-14,Bacteroides thetaiotaomicron 3731,k[e],Uptake,0.03969849999998588
-15,Eggerthella lenta DSM 11767,k[e],Uptake,0.015482499999961876
-16,Clostridium difficile R20291,nac[e],Uptake,0.07283254245381521
-17,Clostridium hiranonis TO 931 DSM 13275,nac[e],Uptake,0.07809399999995605
-18,Clostridium hiranonis TO 931 DSM 13275,for[e],Secretion,61.267649113317084
-19,Bacteroides thetaiotaomicron 3731,for[e],Secretion,63.712397478604814
-20,Eggerthella lenta DSM 11767,for[e],Secretion,67.69817317671777
-21,Eggerthella lenta DSM 11767,ppi[e],Secretion,59.36707392628215
-22,Eggerthella lenta DSM 11767,cgly[e],Uptake,0.36525249999909876
-23,Bacteroides thetaiotaomicron 3731,h2o[e],Secretion,296.88689400019416
-24,Eggerthella lenta DSM 11767,h2o[e],Uptake,34.52356107235718
-25,Clostridium difficile R20291,ac[e],Secretion,100.0
-26,Clostridium hiranonis TO 931 DSM 13275,ac[e],Secretion,133.961073478743
-27,Bacteroides thetaiotaomicron 3731,ac[e],Secretion,129.36158967074016
-28,Eggerthella lenta DSM 11767,ac[e],Secretion,209.83513614684355
-29,Clostridium difficile R20291,arg_L[e],Uptake,0.8870494924599097
-30,Clostridium hiranonis TO 931 DSM 13275,arg_L[e],Uptake,1.4413499999993464
-31,Bacteroides thetaiotaomicron 3731,arg_L[e],Uptake,1.0309144999996658
-32,Eggerthella lenta DSM 11767,arg_L[e],Uptake,20.3518771021335
-33,Clostridium difficile R20291,thr_L[e],Uptake,25.8810502421104
-34,Clostridium hiranonis TO 931 DSM 13275,thr_L[e],Uptake,25.8810502421104
-35,Clostridium difficile R20291,spmd[e],Uptake,0.015482499999961874
-36,Bacteroides thetaiotaomicron 3731,spmd[e],Uptake,0.015482499999961874
-37,Eggerthella lenta DSM 11767,spmd[e],Uptake,0.015482499999961876
-38,Eggerthella lenta DSM 11767,orn[e],Secretion,15.818742102144663
-39,Clostridium difficile R20291,ca2[e],Uptake,0.03641627122690768
-40,Clostridium hiranonis TO 931 DSM 13275,ca2[e],Uptake,0.03904699999998229
-41,Bacteroides thetaiotaomicron 3731,ca2[e],Uptake,0.03969849999998588
-42,Eggerthella lenta DSM 11767,ca2[e],Uptake,0.015482499999961876
-43,Clostridium difficile R20291,lys_L[e],Uptake,1.4846841815370877
-44,Clostridium hiranonis TO 931 DSM 13275,lys_L[e],Uptake,1.6677499999992436
-45,Bacteroides thetaiotaomicron 3731,lys_L[e],Uptake,0.07527549999947548
-46,Clostridium difficile R20291,pro_L[e],Uptake,0.738581074306201
-47,Clostridium hiranonis TO 931 DSM 13275,pro_L[e],Uptake,1.0771499999995113
-48,Bacteroides thetaiotaomicron 3731,pro_L[e],Uptake,0.8051499999997137
-49,Clostridium difficile R20291,leu_L[e],Uptake,17.858497904191722
-50,Clostridium hiranonis TO 931 DSM 13275,leu_L[e],Uptake,2.193299999999005
-51,Bacteroides thetaiotaomicron 3731,leu_L[e],Uptake,2.0807839999992597
-52,Eggerthella lenta DSM 11767,leu_L[e],Uptake,2.3028699999943294
-53,Eggerthella lenta DSM 11767,sheme[e],Uptake,0.015482499999961876
-54,Clostridium difficile R20291,tyr_L[e],Uptake,15.6468539670012
-55,Eggerthella lenta DSM 11767,tyr_L[e],Uptake,0.6033999999985141
-56,Clostridium difficile R20291,trp_L[e],Uptake,0.24995165016078202
-57,Clostridium hiranonis TO 931 DSM 13275,trp_L[e],Uptake,0.2757849999998749
-58,Bacteroides thetaiotaomicron 3731,trp_L[e],Uptake,4.55482477186948
-59,Eggerthella lenta DSM 11767,trp_L[e],Uptake,0.23600999999941885
-60,Clostridium difficile R20291,cobalt2[e],Uptake,0.03641627122690768
-61,Clostridium hiranonis TO 931 DSM 13275,cobalt2[e],Uptake,0.03904699999998229
-62,Bacteroides thetaiotaomicron 3731,cobalt2[e],Uptake,0.03969849999998588
-63,Eggerthella lenta DSM 11767,cobalt2[e],Uptake,0.015482499999961876
-64,Clostridium difficile R20291,pydx[e],Uptake,0.03641627122690768
-65,Clostridium hiranonis TO 931 DSM 13275,pydx[e],Uptake,0.03904699999998229
-66,Clostridium difficile R20291,phe_L[e],Uptake,8.769748831745549
-67,Bacteroides thetaiotaomicron 3731,phe_L[e],Uptake,20.7149866425811
-68,Eggerthella lenta DSM 11767,phe_L[e],Uptake,0.7725999999980976
-69,Clostridium hiranonis TO 931 DSM 13275,pi[e],Uptake,7.806693999996298
-70,Bacteroides thetaiotaomicron 3731,pi[e],Uptake,3.094404499998961
-71,Clostridium hiranonis TO 931 DSM 13275,cytd[e],Uptake,1.4185150000051863
-72,Bacteroides thetaiotaomicron 3731,cytd[e],Uptake,0.47258999999985485
-73,Clostridium difficile R20291,ocdca[e],Uptake,0.3813560614285143
-74,Eggerthella lenta DSM 11767,ocdca[e],Uptake,0.4259199999989512
-75,Bacteroides thetaiotaomicron 3731,succ[e],Secretion,117.12514336389457
-76,Eggerthella lenta DSM 11767,succ[e],Secretion,1.0018224999975327
-77,Clostridium difficile R20291,val_L[e],Uptake,1.4113902265758191
-78,Clostridium hiranonis TO 931 DSM 13275,val_L[e],Uptake,2.057999999999067
-79,Bacteroides thetaiotaomicron 3731,val_L[e],Uptake,1.617996999999419
-80,Eggerthella lenta DSM 11767,val_L[e],Uptake,1.7611499999956635
-81,Clostridium difficile R20291,pnto_R[e],Uptake,0.07283254245381272
-82,Eggerthella lenta DSM 11767,pnto_R[e],Uptake,0.030964999999923748
-83,Clostridium difficile R20291,zn2[e],Uptake,0.03641627122690768
-84,Clostridium hiranonis TO 931 DSM 13275,zn2[e],Uptake,0.03904699999998229
-85,Bacteroides thetaiotaomicron 3731,zn2[e],Uptake,0.03969849999998588
-86,Eggerthella lenta DSM 11767,zn2[e],Uptake,0.015482499999961876
-87,Bacteroides thetaiotaomicron 3731,pheme[e],Uptake,0.03969849999759845
-88,Eggerthella lenta DSM 11767,pheme[e],Uptake,0.015482499999961876
-89,Eggerthella lenta DSM 11767,fol[e],Uptake,0.046447499999877094
-90,Clostridium hiranonis TO 931 DSM 13275,h[e],Secretion,134.1203630028129
-91,Eggerthella lenta DSM 11767,h[e],Secretion,74.30600904386424
-92,Clostridium difficile R20291,cu2[e],Uptake,0.03641627122690768
-93,Clostridium hiranonis TO 931 DSM 13275,cu2[e],Uptake,0.03904699999998229
-94,Bacteroides thetaiotaomicron 3731,cu2[e],Uptake,0.03969849999998588
-95,Eggerthella lenta DSM 11767,cu2[e],Uptake,0.015482499999961876
-96,Clostridium hiranonis TO 931 DSM 13275,adn[e],Uptake,62.73736346301777
-97,Bacteroides thetaiotaomicron 3731,adn[e],Uptake,0.9550784999997515
-98,Eggerthella lenta DSM 11767,adn[e],Uptake,1.0977699999973538
-99,Clostridium difficile R20291,co2[e],Secretion,64.49940420856663
-100,Clostridium hiranonis TO 931 DSM 13275,co2[e],Secretion,4.469618000003803
-101,Eggerthella lenta DSM 11767,co2[e],Secretion,20.134135957032225
-102,Eggerthella lenta DSM 11767,nmn[e],Uptake,0.030964999999919484
-103,Clostridium difficile R20291,his_L[e],Uptake,0.3758631427513168
-104,Clostridium hiranonis TO 931 DSM 13275,his_L[e],Uptake,0.46311499999978994
-105,Bacteroides thetaiotaomicron 3731,his_L[e],Uptake,14.0240766306639
-106,Clostridium difficile R20291,but[e],Secretion,1.094180541390233
-107,Clostridium difficile R20291,nh4[e],Secretion,73.90204887214644
-108,Clostridium hiranonis TO 931 DSM 13275,nh4[e],Secretion,52.635701589251234
-109,Bacteroides thetaiotaomicron 3731,nh4[e],Secretion,35.61700262622652
-110,Eggerthella lenta DSM 11767,nh4[e],Secretion,67.64996476346619
-111,Clostridium hiranonis TO 931 DSM 13275,ins[e],Secretion,60.52865846301882
-112,Clostridium difficile R20291,fe2[e],Uptake,0.10924881368072303
-113,Clostridium hiranonis TO 931 DSM 13275,fe2[e],Uptake,0.03904699999998229
-114,Bacteroides thetaiotaomicron 3731,fe2[e],Uptake,0.07939700000235918
-115,Eggerthella lenta DSM 11767,fe2[e],Uptake,0.015482499999961876
-116,Clostridium hiranonis TO 931 DSM 13275,ala_L[e],Secretion,53.61974540780926
-117,Eggerthella lenta DSM 11767,ala_L[e],Uptake,2.9211649999928064
-118,Clostridium difficile R20291,etoh[e],Secretion,25.024088881349233
-119,Clostridium hiranonis TO 931 DSM 13275,etoh[e],Secretion,8.797916410704149
-120,Clostridium difficile R20291,isoval[e],Secretion,15.883479915927012
-121,Clostridium difficile R20291,4hoxpacd[e],Secretion,15.137557298734661
-122,Clostridium difficile R20291,cys_L[e],Uptake,0.32577420070215735
-123,Clostridium hiranonis TO 931 DSM 13275,cys_L[e],Uptake,0.5229939999997628
-124,Bacteroides thetaiotaomicron 3731,cys_L[e],Uptake,1.0352799999996607
-125,Clostridium difficile R20291,ser_L[e],Uptake,3.07180790231591
-126,Clostridium hiranonis TO 931 DSM 13275,ser_L[e],Uptake,1.0484999999995244
-127,Bacteroides thetaiotaomicron 3731,ser_L[e],Uptake,37.3792255591735
-128,Eggerthella lenta DSM 11767,ser_L[e],Uptake,37.3792255591735
-129,Clostridium difficile R20291,met_L[e],Uptake,0.5862136281960024
-130,Clostridium hiranonis TO 931 DSM 13275,met_L[e],Uptake,0.7857469999996436
-131,Eggerthella lenta DSM 11767,met_L[e],Uptake,0.7164124999982359
-132,Bacteroides thetaiotaomicron 3731,hspg[e],Uptake,0.17295033332254664
-133,Clostridium difficile R20291,biomass[c],Secretion,4.586605441881643
-134,Clostridium hiranonis TO 931 DSM 13275,biomass[c],Secretion,4.9999999999977325
-135,Bacteroides thetaiotaomicron 3731,biomass[c],Secretion,4.999999999998221
-136,Eggerthella lenta DSM 11767,biomass[c],Secretion,4.999999999987688
-137,Clostridium difficile R20291,4abut[e],Secretion,18.160505068958198
-138,Eggerthella lenta DSM 11767,4abut[e],Secretion,75.31508158995062
-139,Bacteroides thetaiotaomicron 3731,urea[e],Secretion,26.896754399757146
-140,Bacteroides thetaiotaomicron 3731,26dap_M[e],Uptake,1.5522549999999458
-141,Eggerthella lenta DSM 11767,26dap_M[e],Uptake,1.5522549999961777
-142,Clostridium hiranonis TO 931 DSM 13275,na1[e],Uptake,172.44627171830402
-143,Clostridium difficile R20291,mg2[e],Uptake,0.03641627122690768
-144,Clostridium hiranonis TO 931 DSM 13275,mg2[e],Uptake,0.03904699999998229
-145,Bacteroides thetaiotaomicron 3731,mg2[e],Uptake,0.03969849999998588
-146,Eggerthella lenta DSM 11767,mg2[e],Uptake,0.015482499999961876
-147,Clostridium difficile R20291,malt[e],Uptake,8.41375824760113
-148,Clostridium difficile R20291,gly[e],Uptake,36.76468629190611
-149,Clostridium hiranonis TO 931 DSM 13275,gly[e],Uptake,36.7646862919061
-150,Clostridium difficile R20291,fru[e],Uptake,21.262135343159645
-151,Clostridium hiranonis TO 931 DSM 13275,fru[e],Uptake,68.92255226055212
-152,Clostridium difficile R20291,fe3[e],Uptake,0.03641627122690768
-153,Clostridium hiranonis TO 931 DSM 13275,fe3[e],Uptake,0.03904699999998229
-154,Bacteroides thetaiotaomicron 3731,fe3[e],Uptake,0.03969849999998588
-155,Eggerthella lenta DSM 11767,fe3[e],Uptake,0.015482499999961876
-156,Clostridium difficile R20291,glyc3p[e],Uptake,6.086592832475685
-157,Eggerthella lenta DSM 11767,glyc3p[e],Uptake,124.21661035255096
-158,Clostridium difficile R20291,ribflv[e],Uptake,0.07283254245381536
-159,Clostridium hiranonis TO 931 DSM 13275,ribflv[e],Uptake,0.07809399999996458
-160,Eggerthella lenta DSM 11767,ribflv[e],Uptake,0.030964999999923748
-161,Clostridium difficile R20291,pac[e],Secretion,7.961634818940422
-162,Bacteroides thetaiotaomicron 3731,pac[e],Secretion,19.834036642581413
-163,Clostridium difficile R20291,mn2[e],Uptake,0.03641627122690768
-164,Clostridium hiranonis TO 931 DSM 13275,mn2[e],Uptake,0.03904699999998229
-165,Bacteroides thetaiotaomicron 3731,mn2[e],Uptake,0.03969849999998588
-166,Eggerthella lenta DSM 11767,mn2[e],Uptake,0.015482499999961876
-167,Clostridium difficile R20291,glyasn[e],Uptake,0.680331185194304
-168,Eggerthella lenta DSM 11767,glyasn[e],Uptake,1.0041499999975274
-169,Clostridium difficile R20291,glu_L[e],Uptake,3.224675379078545
-170,Clostridium hiranonis TO 931 DSM 13275,glu_L[e],Uptake,3.0224799999986316
-171,Bacteroides thetaiotaomicron 3731,glu_L[e],Uptake,0.739141393483564
-172,Eggerthella lenta DSM 11767,glu_L[e],Uptake,75.31508158995062
-173,Clostridium hiranonis TO 931 DSM 13275,thymd[e],Uptake,0.058734999999973364
-174,Bacteroides thetaiotaomicron 3731,thymd[e],Uptake,0.05873499999995602
-175,Bacteroides thetaiotaomicron 3731,indole[e],Secretion,4.282344771869577
-176,Clostridium difficile R20291,thm[e],Uptake,0.03641627122690768
-177,Eggerthella lenta DSM 11767,thm[e],Uptake,0.015482499999961876
-178,Bacteroides thetaiotaomicron 3731,hspg_degr_6[e],Secretion,0.17295033332254664
-179,Clostridium difficile R20291,cl[e],Uptake,0.03641627122690768
-180,Clostridium hiranonis TO 931 DSM 13275,cl[e],Uptake,0.03904699999998229
-181,Bacteroides thetaiotaomicron 3731,cl[e],Uptake,0.03969849999998588
-182,Eggerthella lenta DSM 11767,cl[e],Uptake,0.015482499999961876
+0,Bacteroides thetaiotaomicron 3731,26dap_M[e],Secretion,0.2967907666263611
+1,Eggerthella lenta DSM 11767,26dap_M[e],Uptake,0.31045099982598456
+2,Eggerthella lenta DSM 11767,fol[e],Uptake,0.009289499994792937
+3,Bacteroides thetaiotaomicron 3731,pheme[e],Uptake,0.0014803815238653626
+4,Eggerthella lenta DSM 11767,pheme[e],Uptake,0.0030964999982643353
+5,Clostridium difficile R20291,fe2[e],Uptake,0.0238191
+6,Clostridium hiranonis TO 931 DSM 13275,fe2[e],Uptake,0.002721915335304066
+7,Bacteroides thetaiotaomicron 3731,fe2[e],Uptake,0.002960763047730725
+8,Eggerthella lenta DSM 11767,fe2[e],Uptake,0.0030964999982643353
+9,Clostridium difficile R20291,thr_L[e],Uptake,11.324402630502235
+10,Clostridium hiranonis TO 931 DSM 13275,thr_L[e],Secretion,9.890754881780594e-13
+11,Clostridium difficile R20291,pro_L[e],Uptake,0.16103
+12,Clostridium hiranonis TO 931 DSM 13275,pro_L[e],Uptake,0.07508671865758636
+13,Bacteroides thetaiotaomicron 3731,pro_L[e],Uptake,0.0921773065466851
+14,Clostridium difficile R20291,glc_D[e],Uptake,9.067752297237902
+15,Clostridium hiranonis TO 931 DSM 13275,glc_D[e],Uptake,9.999999999999966
+16,Clostridium difficile R20291,ser_L[e],Uptake,0.6697345000000268
+17,Clostridium hiranonis TO 931 DSM 13275,ser_L[e],Uptake,0.07308956460333221
+18,Bacteroides thetaiotaomicron 3731,ser_L[e],Uptake,1.0958121054071626
+19,Eggerthella lenta DSM 11767,ser_L[e],Uptake,1.0958121054071626
+20,Clostridium hiranonis TO 931 DSM 13275,h2o[e],Secretion,22.156926028654464
+21,Eggerthella lenta DSM 11767,h2o[e],Secretion,26.202839234670286
+22,Eggerthella lenta DSM 11767,glypro[e],Uptake,0.11175599993735823
+23,Clostridium difficile R20291,pydx[e],Uptake,0.0079397
+24,Clostridium hiranonis TO 931 DSM 13275,pydx[e],Uptake,0.002721915335304066
+25,Clostridium difficile R20291,mg2[e],Uptake,0.0079397
+26,Clostridium hiranonis TO 931 DSM 13275,mg2[e],Uptake,0.002721915335304066
+27,Bacteroides thetaiotaomicron 3731,mg2[e],Uptake,0.0014803815238653626
+28,Eggerthella lenta DSM 11767,mg2[e],Uptake,0.0030964999982643353
+29,Clostridium hiranonis TO 931 DSM 13275,uri[e],Secretion,0.08420306500578002
+30,Clostridium difficile R20291,glyphe[e],Uptake,2.1025167000684473
+31,Eggerthella lenta DSM 11767,glyphe[e],Uptake,0.15451999991338772
+32,Clostridium difficile R20291,so4[e],Uptake,0.0079397
+33,Clostridium hiranonis TO 931 DSM 13275,so4[e],Uptake,0.002721915335304066
+34,Bacteroides thetaiotaomicron 3731,so4[e],Uptake,0.0014803815238653626
+35,Eggerthella lenta DSM 11767,so4[e],Uptake,0.0030964999982643353
+36,Clostridium difficile R20291,mn2[e],Uptake,0.0079397
+37,Clostridium hiranonis TO 931 DSM 13275,mn2[e],Uptake,0.002721915335304066
+38,Bacteroides thetaiotaomicron 3731,mn2[e],Uptake,0.0014803815238653626
+39,Eggerthella lenta DSM 11767,mn2[e],Uptake,0.0030964999982643353
+40,Clostridium difficile R20291,glyc3p[e],Uptake,1.3270365000000113
+41,Eggerthella lenta DSM 11767,glyc3p[e],Uptake,14.703815213410849
+42,Clostridium difficile R20291,ribflv[e],Uptake,0.0158794
+43,Clostridium hiranonis TO 931 DSM 13275,ribflv[e],Uptake,0.005443830670608132
+44,Eggerthella lenta DSM 11767,ribflv[e],Uptake,0.006192999996528671
+45,Clostridium hiranonis TO 931 DSM 13275,thymd[e],Uptake,0.004094340082953474
+46,Bacteroides thetaiotaomicron 3731,thymd[e],Uptake,0.06138533525142975
+47,Clostridium hiranonis TO 931 DSM 13275,cytd[e],Uptake,0.7400886077849691
+48,Bacteroides thetaiotaomicron 3731,cytd[e],Secretion,0.04157189864380569
+49,Clostridium difficile R20291,trp_L[e],Uptake,0.054496
+50,Clostridium hiranonis TO 931 DSM 13275,trp_L[e],Uptake,0.01922461189711967
+51,Bacteroides thetaiotaomicron 3731,trp_L[e],Uptake,0.2882294148686242
+52,Eggerthella lenta DSM 11767,trp_L[e],Uptake,0.047201999973542116
+53,Clostridium difficile R20291,zn2[e],Uptake,0.0079397
+54,Clostridium hiranonis TO 931 DSM 13275,zn2[e],Uptake,0.002721915335304066
+55,Bacteroides thetaiotaomicron 3731,zn2[e],Uptake,0.0014803815238653626
+56,Eggerthella lenta DSM 11767,zn2[e],Uptake,0.0030964999982643353
+57,Clostridium difficile R20291,but[e],Secretion,0.4906586333976856
+58,Clostridium difficile R20291,glu_L[e],Uptake,0.7033427000017358
+59,Clostridium hiranonis TO 931 DSM 13275,glu_L[e],Uptake,0.21069313039797846
+60,Bacteroides thetaiotaomicron 3731,glu_L[e],Uptake,3.1588652096814727
+61,Clostridium difficile R20291,biomass[c],Secretion,1.0
+62,Clostridium hiranonis TO 931 DSM 13275,biomass[c],Secretion,0.34854346496581884
+63,Bacteroides thetaiotaomicron 3731,biomass[c],Secretion,0.1864530805780272
+64,Eggerthella lenta DSM 11767,biomass[c],Secretion,0.9999999994394753
+65,Clostridium difficile R20291,pac[e],Secretion,1.9263267000684472
+66,Clostridium difficile R20291,cu2[e],Uptake,0.0079397
+67,Clostridium hiranonis TO 931 DSM 13275,cu2[e],Uptake,0.002721915335304066
+68,Bacteroides thetaiotaomicron 3731,cu2[e],Uptake,0.0014803815238653626
+69,Eggerthella lenta DSM 11767,cu2[e],Uptake,0.0030964999982643353
+70,Eggerthella lenta DSM 11767,metala[e],Uptake,0.1432824999196866
+71,Clostridium hiranonis TO 931 DSM 13275,gly[e],Secretion,0.12006304898549038
+72,Clostridium difficile R20291,k[e],Uptake,0.0079397
+73,Clostridium hiranonis TO 931 DSM 13275,k[e],Uptake,0.002721915335304066
+74,Bacteroides thetaiotaomicron 3731,k[e],Uptake,0.0014803815238653626
+75,Eggerthella lenta DSM 11767,k[e],Uptake,0.0030964999982643353
+76,Clostridium difficile R20291,cl[e],Uptake,0.0079397
+77,Clostridium hiranonis TO 931 DSM 13275,cl[e],Uptake,0.002721915335304066
+78,Bacteroides thetaiotaomicron 3731,cl[e],Uptake,0.0014803815238653626
+79,Eggerthella lenta DSM 11767,cl[e],Uptake,0.0030964999982643353
+80,Bacteroides thetaiotaomicron 3731,pullulan1200[e],Secretion,0.1205647800100643
+81,Clostridium difficile R20291,pnto_R[e],Uptake,0.01587940000000021
+82,Eggerthella lenta DSM 11767,pnto_R[e],Uptake,0.00619299999652858
+83,Eggerthella lenta DSM 11767,nmn[e],Uptake,0.00619299999652858
+84,Clostridium difficile R20291,nac[e],Uptake,0.015879399999999943
+85,Clostridium hiranonis TO 931 DSM 13275,nac[e],Uptake,0.0054438306706078516
+86,Clostridium difficile R20291,cys_L[e],Uptake,0.07102730000000021
+87,Clostridium hiranonis TO 931 DSM 13275,cys_L[e],Uptake,0.03645722818326668
+88,Bacteroides thetaiotaomicron 3731,cys_L[e],Uptake,0.037703199492308485
+89,Clostridium hiranonis TO 931 DSM 13275,pi[e],Uptake,0.544194435337565
+90,Bacteroides thetaiotaomicron 3731,pi[e],Uptake,0.11539225031593714
+91,Clostridium difficile R20291,thm[e],Uptake,0.0079397
+92,Eggerthella lenta DSM 11767,thm[e],Uptake,0.0030964999982643353
+93,Clostridium difficile R20291,arg_L[e],Uptake,0.19340000000000002
+94,Clostridium hiranonis TO 931 DSM 13275,arg_L[e],Uptake,0.1004746246456966
+95,Bacteroides thetaiotaomicron 3731,arg_L[e],Uptake,0.07189528930408176
+96,Eggerthella lenta DSM 11767,arg_L[e],Uptake,1.506388915716343
+97,Clostridium difficile R20291,ile_L[e],Uptake,0.35357560000000005
+98,Clostridium hiranonis TO 931 DSM 13275,ile_L[e],Uptake,0.09848095602609212
+99,Eggerthella lenta DSM 11767,ile_L[e],Uptake,0.3269839998167174
+100,Clostridium difficile R20291,ca2[e],Uptake,0.0079397
+101,Clostridium hiranonis TO 931 DSM 13275,ca2[e],Uptake,0.002721915335304066
+102,Bacteroides thetaiotaomicron 3731,ca2[e],Uptake,0.0014803815238653626
+103,Eggerthella lenta DSM 11767,ca2[e],Uptake,0.0030964999982643353
+104,Clostridium difficile R20291,fe3[e],Uptake,0.0079397
+105,Clostridium hiranonis TO 931 DSM 13275,fe3[e],Uptake,0.002721915335304066
+106,Bacteroides thetaiotaomicron 3731,fe3[e],Uptake,0.0014803815238653626
+107,Eggerthella lenta DSM 11767,fe3[e],Uptake,0.0030964999982643353
+108,Bacteroides thetaiotaomicron 3731,urea[e],Secretion,0.0014803815238653626
+109,Clostridium difficile R20291,co2[e],Secretion,16.880629661144763
+110,Clostridium hiranonis TO 931 DSM 13275,co2[e],Secretion,0.5606420675817845
+111,Bacteroides thetaiotaomicron 3731,co2[e],Secretion,32.66906366376385
+112,Eggerthella lenta DSM 11767,co2[e],Secretion,13.53746923664672
+113,Clostridium difficile R20291,cobalt2[e],Uptake,0.0079397
+114,Clostridium hiranonis TO 931 DSM 13275,cobalt2[e],Uptake,0.002721915335304066
+115,Bacteroides thetaiotaomicron 3731,cobalt2[e],Uptake,0.0014803815238653626
+116,Eggerthella lenta DSM 11767,cobalt2[e],Uptake,0.0030964999982643353
+117,Clostridium difficile R20291,tyr_L[e],Uptake,0.12067999993334207
+118,Eggerthella lenta DSM 11767,tyr_L[e],Uptake,0.12067999993235587
+119,Clostridium difficile R20291,ocdca[e],Uptake,0.0831456
+120,Eggerthella lenta DSM 11767,ocdca[e],Uptake,0.08518399995225226
+121,Clostridium hiranonis TO 931 DSM 13275,for[e],Secretion,0.4565288555139883
+122,Bacteroides thetaiotaomicron 3731,for[e],Secretion,25.24865108698522
+123,Clostridium difficile R20291,val_L[e],Uptake,0.30772
+124,Clostridium hiranonis TO 931 DSM 13275,val_L[e],Uptake,0.14346049017993104
+125,Bacteroides thetaiotaomicron 3731,val_L[e],Uptake,2.150864390012316
+126,Eggerthella lenta DSM 11767,val_L[e],Uptake,0.35222999980256636
+127,Clostridium difficile R20291,4hoxpacd[e],Secretion,0.00963999993334206
+128,Eggerthella lenta DSM 11767,sheme[e],Uptake,0.0030964999982643353
+129,Eggerthella lenta DSM 11767,ppi[e],Secretion,6.803661357012713
+130,Clostridium difficile R20291,his_L[e],Uptake,0.08194800000000001
+131,Clostridium hiranonis TO 931 DSM 13275,his_L[e],Uptake,0.03228314135552904
+132,Bacteroides thetaiotaomicron 3731,his_L[e],Uptake,0.48401242078739415
+133,Clostridium hiranonis TO 931 DSM 13275,ala_L[e],Secretion,18.173485379386612
+134,Bacteroides thetaiotaomicron 3731,ala_L[e],Uptake,0.4409504997564682
+135,Eggerthella lenta DSM 11767,ala_L[e],Uptake,0.44095049975283634
+136,Bacteroides thetaiotaomicron 3731,xylottr[e],Uptake,44.849826563356295
+137,Clostridium difficile R20291,ac[e],Secretion,26.436071624914923
+138,Eggerthella lenta DSM 11767,ac[e],Secretion,10.85488732158966
+139,Bacteroides thetaiotaomicron 3731,isobut[e],Secretion,2.225065554418351
+140,Clostridium difficile R20291,spmd[e],Uptake,0.003096499998264335
+141,Bacteroides thetaiotaomicron 3731,spmd[e],Uptake,0.0014803815238653626
+142,Eggerthella lenta DSM 11767,spmd[e],Uptake,0.0030964999982643353
+143,Clostridium difficile R20291,asn_L[e],Uptake,0.14833
+144,Eggerthella lenta DSM 11767,asn_L[e],Uptake,0.20082999988742983
+145,Clostridium difficile R20291,nh4[e],Secretion,13.128670330570694
+146,Clostridium hiranonis TO 931 DSM 13275,nh4[e],Uptake,18.487564660639947
+147,Bacteroides thetaiotaomicron 3731,nh4[e],Secretion,9.63766150565851
+148,Eggerthella lenta DSM 11767,nh4[e],Secretion,1.975676938035399
+149,Eggerthella lenta DSM 11767,cgly[e],Uptake,0.07305049995905327
+150,Clostridium difficile R20291,met_L[e],Uptake,0.1280890000017357
+151,Clostridium hiranonis TO 931 DSM 13275,met_L[e],Uptake,0.05477339639329957
+152,Clostridium difficile R20291,o2[e],Uptake,3.539322347238766
+153,Bacteroides thetaiotaomicron 3731,o2[e],Uptake,43.781771690846305
+154,Eggerthella lenta DSM 11767,o2[e],Uptake,18.358281875199477
+155,Eggerthella lenta DSM 11767,orn[e],Secretion,0.711517916161888
+156,Bacteroides thetaiotaomicron 3731,indole[e],Secretion,0.16428449355211475
+157,Clostridium difficile R20291,etoh[e],Secretion,11.137562630502234
+158,Clostridium hiranonis TO 931 DSM 13275,fum[e],Secretion,0.15396593875746228
+159,Bacteroides thetaiotaomicron 3731,adn[e],Uptake,0.03561546570377462
+160,Eggerthella lenta DSM 11767,adn[e],Uptake,0.21955399987694618
+161,Clostridium hiranonis TO 931 DSM 13275,h[e],Secretion,18.6614074783108
+162,Eggerthella lenta DSM 11767,h[e],Secretion,1.3716420269359981
+163,Clostridium difficile R20291,lys_L[e],Uptake,0.32370000000000004
+164,Clostridium hiranonis TO 931 DSM 13275,lys_L[e],Uptake,0.11625667273934888
+165,Bacteroides thetaiotaomicron 3731,lys_L[e],Uptake,0.7052634603151404
+166,Clostridium difficile R20291,leu_L[e],Uptake,0.43060560000000003
+167,Clostridium hiranonis TO 931 DSM 13275,leu_L[e],Uptake,0.15289207634190607
+168,Bacteroides thetaiotaomicron 3731,leu_L[e],Uptake,0.8552853031020841
+169,Eggerthella lenta DSM 11767,leu_L[e],Uptake,0.4605739997418369

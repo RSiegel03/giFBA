@@ -9,6 +9,8 @@ import pandas as pd
 def load_simple_models(number):
 	if number == "2b":
 		number = "2a"  # same models as 2a
+	elif number == "5b" or number == "5c":
+		number = "5a"  # same models as 5a
 		
 	situation_models = {
 		"1a": ["sim1a.json"],
@@ -22,11 +24,14 @@ def load_simple_models(number):
 		"3b": ["sim3b_1.json", "sim3b_2.json"],
 		"3c": ["sim3c_1.json", "sim3c_2.json"],
 		"4a": ["sim4a_1.json", "sim4a_2.json"],
+		"5a": ["sim5a_1.json", "sim5a_2.json"],
+		"test2": ["test2_sim_1.json", "test2_sim_2.json"],
+		"test3": ["test3_sim_1.json", "test3_sim_2.json", "test3_sim_3.json"]
 
 	}
 
 	situation_media = None
-	if number in ["1a", "1b", "2a", "2b", "2c", "2d", "2e", "3b", "3c"]: # A only in media 
+	if number in ["1a", "1b", "2a", "2b", "2c", "2d", "2e", "3b", "3c", "5a"]: # A only in media 
 		situation_media = {"Ex_A": -10}
 	elif number in ["1c"]:
 		situation_media = {"Ex_A": -10, "Ex_B": -10}
@@ -34,6 +39,8 @@ def load_simple_models(number):
 		situation_media = {"Ex_A": -10, "Ex_C": -10}
 	elif number in ["4a"]:
 		situation_media = {"Ex_A": -10, "Ex_B": -10, "Ex_D": -10}
+	elif number in ["test2"]:
+		situation_media = {"Ex_A": -10, "Ex_D": -10}
 	
 	models = []
 	for file_name in situation_models[number]:
