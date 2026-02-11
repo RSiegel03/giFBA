@@ -192,6 +192,9 @@ class gifbaObject:
         # self.env_fluxes.loc[(slice(1, None)), :] -= self.flow * self.env_fluxes.loc[0, :].values
         # self.env_fluxes.loc[(slice(1, None)), :] *= 1/ (1-self.flow)
 
+        # cumulative sum across iterations
+        self.org_fluxes = self.org_fluxes.groupby(level=["Model"]).cumsum()
+
         # return results for total fluxes
         return self.env_fluxes.iloc[-1], self.org_fluxes.iloc[-self.size:]
 
